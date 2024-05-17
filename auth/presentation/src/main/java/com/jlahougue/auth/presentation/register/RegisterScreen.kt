@@ -144,7 +144,7 @@ fun RegisterScreen(
                     id = R.string.at_least_x_characters,
                     UserDataValidator.MIN_PASSWORD_LENGTH
                 ),
-                isValid = state.passwordValidationState.hasMinimumLength
+                isValid = state.passwordValidationState.hasMinLength
             )
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
@@ -208,7 +208,7 @@ private fun RegisterPreview() {
         RegisterScreen(
             state = RegisterState(
                 passwordValidationState = PasswordValidationState(
-                    hasMinimumLength = true,
+                    hasMinLength = true,
                     hasUpperCaseCharacter = true
                 )
             ),
