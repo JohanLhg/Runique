@@ -7,10 +7,12 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *, *, *>
 ) {
     commonExtension.apply {
         compileSdk = libs.findVersion("projectCompileSdkVersion").get().toString().toInt()
@@ -46,3 +48,13 @@ private fun Project.configureKotlin() {
         }
     }
 }
+
+/*
+private fun Project.configureKotlin() {
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            apiVersion.set(KotlinVersion.KOTLIN_2_0)
+        }
+    }
+}
+*/

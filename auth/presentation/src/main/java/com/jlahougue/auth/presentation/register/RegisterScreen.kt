@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.jlahougue.auth.presentation.register
 
@@ -59,7 +59,6 @@ fun RegisterScreenRoot(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RegisterScreen(
     state: RegisterState,
