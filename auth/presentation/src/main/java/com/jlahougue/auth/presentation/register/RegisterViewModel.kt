@@ -1,12 +1,9 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.jlahougue.auth.presentation.register
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.text2.input.textAsFlow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.auth.domain.AuthRepository
@@ -34,9 +31,9 @@ class RegisterViewModel(
     val events = eventChannel.receiveAsFlow()
 
     init {
-        state.email.textAsFlow()
+        snapshotFlow { state.email.text.toString() }
             .onEach { email ->
-                val isValidEmail = userDataValidator.isValidEmail(email.toString())
+                val isValidEmail = userDataValidator.isValidEmail(email)
                 state = state.copy(
                     isEmailValid = isValidEmail,
                     canRegister = isValidEmail && state.passwordValidationState.isValidPassword
@@ -45,10 +42,10 @@ class RegisterViewModel(
             }
             .launchIn(viewModelScope)
 
-        state.password.textAsFlow()
+        snapshotFlow { state.password.text.toString() }
             .onEach { password ->
                 val passwordValidationState =
-                    userDataValidator.validatePassword(password.toString())
+                    userDataValidator.validatePassword(password)
                 state = state.copy(
                     passwordValidationState = passwordValidationState,
                     canRegister = state.isEmailValid && passwordValidationState.isValidPassword

@@ -26,3 +26,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+/*
+Credentials :
+  example@jle.com
+  Password1
+*/
