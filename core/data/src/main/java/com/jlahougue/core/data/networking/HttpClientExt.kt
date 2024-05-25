@@ -1,5 +1,6 @@
 package com.jlahougue.core.data.networking
 
+import android.util.Log
 import com.jlahougue.core.data.BuildConfig
 import com.jlahougue.core.domain.util.DataError
 import com.jlahougue.core.domain.util.Result
@@ -15,6 +16,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.SerializationException
+import timber.log.Timber
 
 suspend inline fun <reified Response: Any> HttpClient.get(
     route: String,
@@ -75,6 +77,7 @@ suspend inline fun <reified T> safeCall(execute: () -> HttpResponse): Result<T, 
 }
 
 suspend inline fun <reified T> responseToResult(response: HttpResponse): Result<T, DataError.Network> {
+    Timber.d("Status response " + response.status.value.toString())
     return when(response.status.value) {
         in 200..299 -> Result.Success(response.body<T>())
         401 -> Result.Error(DataError.Network.UNAUTHORIZED)

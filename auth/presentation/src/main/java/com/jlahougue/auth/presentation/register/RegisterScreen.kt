@@ -38,7 +38,6 @@ import com.jlahougue.core.presentation.designsystem.CrossIcon
 import com.jlahougue.core.presentation.designsystem.EmailIcon
 import com.jlahougue.core.presentation.designsystem.Poppins
 import com.jlahougue.core.presentation.designsystem.RuniqueDarkRed
-import com.jlahougue.core.presentation.designsystem.RuniqueGray
 import com.jlahougue.core.presentation.designsystem.RuniqueGreen
 import com.jlahougue.core.presentation.designsystem.RuniqueTheme
 import com.jlahougue.core.presentation.designsystem.components.GradientBackground
@@ -80,7 +79,13 @@ fun RegisterScreenRoot(
 
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = {
+            when (it) {
+                RegisterAction.OnLoginClick -> onSignInClick()
+                else -> {}
+            }
+            viewModel.onAction(it)
+        }
     )
 }
 
@@ -108,7 +113,7 @@ fun RegisterScreen(
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
-                        color = RuniqueGray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 ) {
                     append(stringResource(id = R.string.already_have_an_account) + " ")
