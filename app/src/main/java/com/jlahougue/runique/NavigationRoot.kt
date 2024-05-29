@@ -10,6 +10,8 @@ import androidx.navigation.navigation
 import com.jlahougue.auth.presentation.intro.IntroScreenRoot
 import com.jlahougue.auth.presentation.login.LoginScreenRoot
 import com.jlahougue.auth.presentation.register.RegisterScreenRoot
+import com.jlahougue.run.presentation.active_run.ActiveRunScreenRoot
+import com.jlahougue.run.presentation.run_overview.RunOverviewScreenRoot
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -101,12 +103,22 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
 object RunGraph {
     @Serializable
     object Overview
+
+    @Serializable
+    object ActiveRun
 }
 
 private fun NavGraphBuilder.runGraph(navController: NavHostController) {
     navigation<RunGraph>(startDestination = RunGraph.Overview) {
         composable<RunGraph.Overview> {
-            Text("Home")
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate(RunGraph.ActiveRun)
+                }
+            )
+        }
+        composable<RunGraph.ActiveRun> {
+            ActiveRunScreenRoot()
         }
     }
 }
