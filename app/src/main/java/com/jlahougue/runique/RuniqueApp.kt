@@ -4,6 +4,7 @@ import android.app.Application
 import com.jlahougue.auth.data.di.authDataModule
 import com.jlahougue.auth.presentation.di.authViewModelModule
 import com.jlahougue.core.data.di.coreDataModule
+import com.jlahougue.core.database.di.databaseModule
 import com.jlahougue.run.location.di.locationModule
 import com.jlahougue.run.presentation.di.runPresentationModule
 import com.jlahougue.runique.di.appModule
@@ -33,7 +34,8 @@ class RuniqueApp: Application() {
                 authDataModule,
                 authViewModelModule,
                 runPresentationModule,
-                locationModule
+                locationModule,
+                databaseModule
             )
         }
     }
